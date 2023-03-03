@@ -95,10 +95,9 @@ export default function App() {
       <Modal animationType="fade" transparent={true} visible={modalVisible}>
         <View style={styles.modalMainView}>
           <View style={styles.modalView}>
-            <Text style={styles.modalTitle}>Eliminar Item</Text>
+            <Text style={styles.modalTitle}>Eliminar {selectedItem?.value}</Text>
             <Text style={styles.modalText}>
-              ¿Está seguro que desea eliminar el item{" "}
-              <Text style={styles.modalBoldText}>{selectedItem?.value}</Text>?
+              ¿Está seguro que desea eliminar este item?
             </Text>
             <View style={styles.modalActions}>
               <Pressable
