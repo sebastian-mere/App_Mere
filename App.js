@@ -14,7 +14,9 @@ export default function App() {
   const [itemText, setItemText] = useState("");
   const [items, setItems] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
+  const [showOverlay, setShowOverlay] = useState(false);
 
   const onChangeText = (text) => {
     setItemText(text);
@@ -23,27 +25,34 @@ export default function App() {
   const addItemToState = () => {
     if (itemText.trim() === "") {
       setShowModal(true);
+      setShowOverlay(true);
       return;
     }
     setItems((oldArry) => [...oldArry, { id: Date.now(), value: itemText }]);
     setItemText("");
   };
+  
+  const hideModal = () => {
+    setShowModal(false);
+    setShowOverlay(false);
+  }
 
   const openModal = (item) => {
     setSelectedItem(item);
     setModalVisible(true);
+    setShowOverlay(true);
   };
-
-  const [showModal, setShowModal] = useState(false);
 
   const onCancelModal = () => {
     setModalVisible(!modalVisible);
+    setShowOverlay(false);
   };
 
   const onDeleteModal = (id) => {
     setModalVisible(!modalVisible);
     setItems((oldArry) => oldArry.filter((item) => item.id !== id));
     setSelectedItem(null);
+    setShowOverlay(false);
   };
 
   return (
@@ -77,10 +86,11 @@ export default function App() {
         <View style={styles.modalMainView}>
           <View style={styles.modalView}>
             <Text style={styles.modalText}>Ingrese un valor válido</Text>
-            <Button title="Aceptar" onPress={() => setShowModal(false)} />
+            <Button title="Aceptar" onPress={() => hideModal()} />
           </View>
         </View>
       </Modal>
+      {showOverlay && <View style={styles.overlay} />}
 
       <Modal animationType="fade" transparent={true} visible={modalVisible}>
         <View style={styles.modalMainView}>
@@ -109,6 +119,7 @@ export default function App() {
           </View>
         </View>
       </Modal>
+      {showOverlay && <View style={styles.overlay} />}
     </View>
   );
 }
@@ -178,6 +189,10 @@ const styles = StyleSheet.create({
   modalActions: {
     flexDirection: "row",
     justifyContent: "space-between",
+  },
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
   },
   button: {
     borderRadius: 5,
