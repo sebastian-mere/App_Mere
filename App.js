@@ -1,40 +1,60 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, Image, View } from 'react-native';
+import { StyleSheet, Text, View, TextInput, ScrollView, Button } from 'react-native';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Image style={styles.img}
-          source={{ uri: "https://i.pinimg.com/originals/9d/03/11/9d0311cd37e8f02cc89c47e5d75a8cad.gif" }}
-      />
-      <Text style={styles.text1}>¡Hola Coder!</Text>
-      <Text style={styles.text2}>Hubo que pelearlo un poco pero funcionó</Text>
-      <StatusBar style="auto" />
+    <View style={styles.screen}>
+      <View style={[styles.inputContainer, styles.centrado] }>
+        <TextInput placeholder='Agrega un item' style={styles.input} />
+        <Button title='Add' />
+      </View>
+
+      <View>
+          <ScrollView>
+            <View style={[styles.item, styles.centrado]}>
+              <Text>Elemento 1</Text>
+              <Button title='X' />
+            </View>
+            <View style={[styles.item, styles.centrado]}>
+              <Text>Elemento 2</Text>
+              <Button title='X' />
+            </View>
+            <View style={[styles.item, styles.centrado]}>
+              <Text>Elemento 3</Text>
+              <Button title='X' />
+            </View>
+            <View style={[styles.item, styles.centrado]}>
+              <Text>Elemento 4</Text>
+              <Button title='X' />
+            </View>
+          </ScrollView> 
+      </View>
+
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#03072D',
+  screen: {
+    padding: 30
+  },
+  centrado: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
-    justifyContent: 'center',
   },
-  img: {
-    width: 200, 
-    height: 200,
-    marginBottom: 10
+  inputContainer: {
+    marginTop: 30
   },
-  text1: {
-    fontSize: 22,
-    color: '#FF516A',
-    fontWeight: '900',
-    marginBottom: 10
+  input: {
+    borderBottomWidth: 1,
+    borderBottomColor: 'black',
+    width: '80%'
   },
-  text2: {
-    fontSize: 16,
-    color: '#FFF',
-    fontWeight: '400'
+  item: {
+    paddingTop: 10,
   },
+  color: {
+    backgroundColor: 'red'
+  }
 });
